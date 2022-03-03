@@ -22,7 +22,7 @@ const path = require("path");
 app.use(bodyParser.json());
 app.use("/images", express.static(path.join(__dirname, "images"))); 
 app.use("/api/auth", useroutes);
-//app.use("/api/messages", messagesroutes);
+app.use("/api/messages", messagesroutes);
 
   module.exports = app;
   
