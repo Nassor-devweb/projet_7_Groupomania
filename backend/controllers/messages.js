@@ -14,9 +14,6 @@ exports.messageCreate = (req, res, next) => {
 
     let Photolink;
     
-    if (req.file.mimetype != "image/jpeg" && req.file.mimetype != "image/png" && req.file.mimetype != "image/gif" && req.file.mimetype != "image/jpg"){
-      return res.status(400).json({ message: "Le format de l’image est non pris en charge" });
-    }
     if (req.file) {
       Photolink = `${req.protocol}://${req.get("host")}/images/${
         req.file.filename
@@ -24,6 +21,14 @@ exports.messageCreate = (req, res, next) => {
     } else {
         Photolink == null;
     }
+    
+    if (req.file){
+        if (req.file.mimetype != "image/jpeg" && req.file.mimetype != "image/png" && req.file.mimetype != "image/gif" && req.file.mimetype != "image/jpg"){
+          return res.status(400).json({ message: "Le format de l’image est non pris en charge" });
+        }
+    } 
+    
+
     if (req.body.contenu == 'null' && req.body.inputFile == 'null') {
       return res.status(400).json({ error: "Veuillez saisir au moins une image ou un message" });
     }
